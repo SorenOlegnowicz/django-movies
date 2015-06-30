@@ -62,3 +62,15 @@ target/
 data/
 *.sqlite
 *.sqlite3
+
+# Virtual Environent
+.envrc
+.direnv/
+
+# Experiment
+poll_app/
+
+# Big stuffs
+movieratings/db.sqlite3
+movieratings/the_data/
+movieratings/some_data/
