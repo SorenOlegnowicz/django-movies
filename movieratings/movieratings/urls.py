@@ -15,7 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from data_app import views as data_views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^$', data_views.movie_list),
+    url(r'^(?P<movie_id>\d+)/$', data_views.movie_detail),
+    url(r'^users/', data_views.user_list),
+    url(r'^users/(?P<user_id>\d+)/$', data_views.user_detail)
 ]
