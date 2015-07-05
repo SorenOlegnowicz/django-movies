@@ -1,12 +1,18 @@
-from django.http import HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render_to_response as rtr
 from data_app.models import Movie, Rating, User
 
 # Create your views here.
 
+
+def home(request):
+    context = {}
+    return rtr("base.html", context)
+
+
 def movie_list(request):
     all_movies = Movie.objects.all()
-    context = {"title": all_movies}
+    context = {"titles": all_movies}
     return rtr("movie_list.html", context)
 
 
@@ -17,37 +23,35 @@ def user_list(request):
 
 
 def movie_detail(request, movie_id):
+    avglist = []
     try:
         movie = Movie.objects.get(id=movie_id)
+        rats = Movie.objects.filter(id=movie_id).values_list('rating__rating')
+        for i in rats:
+            avglist.append(i[0])
+        avgrat = sum(avglist)/len(avglist)
+        uovie = User.objects.filter(rating__movie=movie)
     except Movie.DoesNotExist:
         return HttpResponseNotFound("NOT FOUND!")
-    context = {"movie": movie}
+    context = {"movie": movie, "average": avgrat, "uovie": uovie}
     return rtr("movie_detail.html", context)
 
 
 def user_detail(request, user_id):
     try:
         user = User.objects.get(id=user_id)
+        muser = Movie.objects.filter(rating__user=user)
+        #  ruser = User.objects.filter(rating__)
     except User.DoesNotExist:
         return HttpResponseNotFound("NOT FOUND!")
-    context = {"user": user}
+    context = {"user": user, "muser": muser}
     return rtr("user_detail.html", context)
 
 
-
-"""def splat_detail(request, splat_id):
+def movie_detail_2(request, movie_id):
     try:
-        splat = Splat.objects.get(id=splat_id)
-    except Splat.DoesNotExist:
+        movie = Movie.objects.get(id=movie_id)
+    except Movie.DoesNotExist:
         return HttpResponseNotFound("NOT FOUND!")
-    context = {"splat": splat}
-    return render_to_response("splat_detail.html", context)
-
-
-def user_detail(request, user_id):
-    try:
-        splatee = Splatee.objects.get(id=user_id)
-    except Splatee.DoesNotExist:
-        return HttpResponseNotFound("Not Found!")
-    context = {"splatee": splatee}
-    return render_to_response("user_detail.html", context)"""
+    context = {"movie": movie}
+    return rtr("movie_detail.html", context)

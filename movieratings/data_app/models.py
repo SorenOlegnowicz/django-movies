@@ -23,6 +23,7 @@ class Rating(models.Model):
     def __str__(self):
         return 'User: {}, Rating: {}'.format(self.user, str(self.rating))
 
+
 class User(models.Model):
     user_id = models.IntegerField(default=None)
     gender = models.CharField(max_length=1)

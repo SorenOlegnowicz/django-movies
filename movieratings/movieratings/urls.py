@@ -19,8 +19,11 @@ from data_app import views as data_views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', data_views.movie_list),
-    url(r'^(?P<movie_id>\d+)/$', data_views.movie_detail),
-    url(r'^users/', data_views.user_list),
-    url(r'^users/(?P<user_id>\d+)/$', data_views.user_detail)
+    url(r'^$', data_views.home),
+    url(r'^movies/$', data_views.movie_list),
+    url(r'^movies/(?P<movie_id>\d+)/$', data_views.movie_detail),
+    url(r'^movies/([0-9]+)/(?P<user_id>\d+)/$', data_views.user_detail),
+    url(r'^users/$', data_views.user_list),
+    url(r'^users/(?P<user_id>[0-9]+)/$', data_views.user_detail),
+    url(r'^users/([0-9]+)/(?P<movie_id>\d+)/$', data_views.movie_detail)
 ]

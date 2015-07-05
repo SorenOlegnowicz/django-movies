@@ -7,4 +7,10 @@
 <div>{{ movie.title }}</div>
 <div>{{ movie.genres }}</div>
 
+<h4>Average Rating: {{ average }}</h4>
+
+<h3>Users: </h3>
+    {% for uov in uovie %}
+        <div><a href="{{ uov.id }}">{{ uov }}</a> Rating: </div>
+    {%  endfor %}
 {% endblock %}
