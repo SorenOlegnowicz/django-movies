@@ -8,9 +8,17 @@
 
 <h1>MOVIEVIL</h1>
 
+<h2>User: {{ user.username }}</h2>
 <a href="/">Home</a>
 <a href="/movies">Movies</a>
 <a href="/users">Users</a>
+{% if user.id %}
+<a href="{% url 'logout' %}">Logout</a>
+{% else %}
+<a href="{% url 'login' %}">Login</a>
+<a href="{% url 'registration' %}">Sign up</a>
+{%  endif %}
+
 
 {% block title %}
     <h3>Welcome to Movievil!</h3>

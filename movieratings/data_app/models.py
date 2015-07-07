@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User as Rater
 
 
 class Movie(models.Model):
@@ -25,6 +26,7 @@ class Rating(models.Model):
 
 
 class User(models.Model):
+    rater = models.OneToOneField(Rater, null=True)
     user_id = models.IntegerField(default=None)
     gender = models.CharField(max_length=1)
     age = models.IntegerField(default=None)
