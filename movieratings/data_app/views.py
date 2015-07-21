@@ -32,10 +32,8 @@ def movie_detail(request, movie_id):
     avglist = []
     try:
         movie = Movie.objects.get(id=movie_id)
-        rats = Movie.objects.filter(id=movie_id).values_list('rating__rating')
-        for i in rats:
-            avglist.append(i[0])
-        avgrat = sum(avglist)/len(avglist)
+        rats = Movie.objects.filter(id=movie_id).values_list('rating__rating', flat=True)
+        avgrat = sum(rats)/len(rats)
         uovie = User.objects.filter(rating__movie=movie)
     except Movie.DoesNotExist:
         return HttpResponseNotFound("NOT FOUND!")
